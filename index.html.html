@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Students' Finance Club, OAU — Finance Foundation Course</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #102040;
+    --navy-light: #1a3055;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-pale: #f5e9c8;
+    --cream: #faf7f0;
+    --white: #ffffff;
+    --text-dark: #0a1628;
+    --text-mid: #3d5270;
+    --text-light: #7a91aa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--navy);
+    padding: 48px 40px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(201,168,76,0.04) 40px,
+      rgba(201,168,76,0.04) 41px
+    );
+  }
+  .header-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 6px 16px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 4vw, 42px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  header h1 span { color: var(--gold); }
+  header p {
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    position: relative;
+  }
+
+  /* ── TABS ── */
+  .tab-nav {
+    background: var(--navy-mid);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .tab-nav-inner {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+  .tab-nav-inner::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex-shrink: 0;
+    padding: 16px 22px;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: rgba(255,255,255,0.45);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: rgba(255,255,255,0.75); }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* ── TAB PANELS ── */
+  .tab-panel { display: none; padding: 40px 0 60px; }
+  .tab-panel.active { display: block; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ── INSTRUCTIONS TAB ── */
+  .instructions-hero {
+    background: var(--navy);
+    border-radius: 12px;
+    padding: 48px 40px;
+    color: white;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .instructions-hero::after {
+    content: '◈';
+    position: absolute;
+    right: 40px; top: 40px;
+    font-size: 80px;
+    color: rgba(201,168,76,0.12);
+    line-height: 1;
+  }
+  .instructions-hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .instructions-hero h2 span { color: var(--gold); }
+  .instructions-hero p {
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    max-width: 600px;
+    font-size: 15px;
+  }
+
+  .how-to-use {
+    background: white;
+    border-radius: 10px;
+    padding: 32px 36px;
+    border: 1px solid rgba(10,22,40,0.08);
+    margin-bottom: 32px;
+  }
+  .how-to-use h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--navy);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(10,22,40,0.08);
+  }
+  .steps { display: flex; flex-direction: column; gap: 14px; }
+  .step { display: flex; gap: 16px; align-items: flex-start; }
+  .step-num {
+    width: 28px; height: 28px;
+    background: var(--navy);
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step p { font-size: 14px; line-height: 1.6; color: var(--text-mid); }
+  .step strong { color: var(--text-dark); }
+
+  .division-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .div-card {
+    border-radius: 10px;
+    padding: 24px 20px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .div-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+  .div-card.ib { background: linear-gradient(135deg, #1a3a5c, #0f2240); }
+  .div-card.gm { background: linear-gradient(135deg, #1a4a2e, #0f2e1c); }
+  .div-card.gt { background: linear-gradient(135deg, #2a1a4a, #180e2e); }
+  .div-card.mc { background: linear-gradient(135deg, #4a2a1a, #2e180e); }
+  .div-card-icon { font-size: 28px; margin-bottom: 12px; }
+  .div-card h4 { font-family: 'Playfair Display', serif; font-size: 16px; color: white; margin-bottom: 6px; }
+  .div-card p { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+  .div-card .go-btn {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--gold);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── DIVISION HEADER ── */
+  .division-header {
+    border-radius: 12px;
+    padding: 36px 36px 28px;
+    margin-bottom: 28px;
+    color: white;
+  }
+  .division-header.ib { background: linear-gradient(135deg, #1a3a5c 0%, #0a2040 100%); }
+  .division-header.gm { background: linear-gradient(135deg, #1a4a2e 0%, #0a2818 100%); }
+  .division-header.gt { background: linear-gradient(135deg, #2a1a4a 0%, #150e28 100%); }
+  .division-header.mc { background: linear-gradient(135deg, #4a2a1a 0%, #2a160a 100%); }
+  .division-header .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .division-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .division-header p {
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 600px;
+  }
+
+  /* ── PHASE SECTIONS ── */
+  .phase { margin-bottom: 36px; }
+  .phase-label { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .phase-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+  .phase-tag.foundation  { background: #e8f0e8; color: #1a5c2e; }
+  .phase-tag.intermediate{ background: #e8eef8; color: #1a3a6c; }
+  .phase-tag.advanced    { background: #f0e8f8; color: #4a1a8c; }
+  .phase-line { flex: 1; height: 1px; background: rgba(10,22,40,0.1); }
+
+  /* ── RESOURCE CARDS ── */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 14px;
+  }
+  .resource-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px 22px;
+    border: 1px solid rgba(10,22,40,0.07);
+    transition: box-shadow 0.2s, transform 0.15s;
+    text-decoration: none;
+    display: block;
+    color: inherit;
+  }
+  .resource-card:hover {
+    box-shadow: 0 8px 24px rgba(10,22,40,0.1);
+    transform: translateY(-2px);
+  }
+  .resource-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .resource-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+  .resource-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.4;
+  }
+  .source-badge {
+    flex-shrink: 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .source-badge.investopedia { background: #fff3e0; color: #c05820; }
+  .source-badge.youtube      { background: #fce8e8; color: #c0281a; }
+  .source-badge.cfi          { background: #e8f4f8; color: #1a6080; }
+  .source-badge.other        { background: #f0ece8; color: #6a4a2a; }
+  .resource-card .arrow {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.35);
+    text-align: center;
+    padding: 28px 24px;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    header { padding: 36px 20px 28px; }
+    .instructions-hero { padding: 32px 24px; }
+    .how-to-use { padding: 24px; }
+    .division-header { padding: 28px 24px 22px; }
+    .tab-btn { padding: 14px 14px; font-size: 12px; }
+    .resources-grid { grid-template-columns: 1fr; }
+    .division-cards { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ── ANIMATIONS ── */
+  .tab-panel.active .resource-card,
+  .tab-panel.active .div-card {
+    animation: fadeUp 0.35s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .tab-panel.active .phase:nth-child(2) .resource-card { animation-delay: 0.05s; }
+  .tab-panel.active .phase:nth-child(3) .resource-card { animation-delay: 0.1s; }
+  .tab-panel.active .phase:nth-child(4) .resource-card { animation-delay: 0.15s; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">OAU · Finance Foundation Course</div>
+  <h1>Students' Finance Club, <span>OAU</span><br>Finance Foundation Course</h1>
+  <p>Curated resources for aspiring finance professionals · Select your division to begin</p>
+</header>
+
+<!-- TAB NAV -->
+<nav class="tab-nav">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active"  onclick="switchTab('instructions', this)">📋 Overview</button>
+    <button class="tab-btn"         onclick="switchTab('ib', this)">🏦 Investment Banking</button>
+    <button class="tab-btn"         onclick="switchTab('gm', this)">📈 Global Markets</button>
+    <button class="tab-btn"         onclick="switchTab('gt', this)">💻 Global Technology</button>
+    <button class="tab-btn"         onclick="switchTab('mc', this)">🧩 Management Consulting</button>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════
+     INSTRUCTIONS / OVERVIEW
+══════════════════════════════════════════════════ -->
+<div class="tab-panel active" id="panel-instructions">
+  <div class="container">
+
+    <div class="instructions-hero">
+      <h2>Welcome to the <span>Foundation Course</span></h2>
+      <p>This hub is your structured entry point into the four core divisions of finance. Each division is organised into three progressive phases — Foundation, Intermediate, and Advanced — so you can build knowledge systematically, at your own pace.</p>
+    </div>
+
+    <div class="how-to-use">
+      <h3>How to Use This Resource</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <p><strong>Choose your division</strong> from the navigation tabs above — Investment Banking, Global Markets, Global Technology, or Management Consulting.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <p><strong>Start at Phase 1 · Foundation</strong> regardless of your background. Each concept builds on the previous one.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <p><strong>Click any card</strong> to open the resource in a new tab. Investopedia articles are great for definitions; YouTube videos are ideal for concept walkthroughs.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <p><strong>Progress to Intermediate and Advanced</strong> phases once you're comfortable with the foundational concepts. Don't rush — depth matters more than speed.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="division-cards">
+      <div class="div-card ib" onclick="switchTabByName('ib')">
+        <div class="div-card-icon">🏦</div>
+        <h4>Investment Banking</h4>
+        <p>Valuation, financial modelling, M&A, LBOs, DCF, and capital markets. 31 resources across 3 phases.</p>
+        <span class="go-btn">Start Track →</span>
+      </div>
+      <div class="div-card gm" onclick="switchTabByName('gm')">
+        <div class="div-card-icon">📈</div>
+        <h4>Global Markets</h4>
+        <p>Equities, fixed income, FX, derivatives, options pricing, and quantitative strategies. 25 resources.</p>
+        <span class="go-btn">Start Track →</span>
+      </div>
+      <div class="div-card gt" onclick="switchTabByName('gt')">
+        <div class="div-card-icon">💻</div>
+        <h4>Global Technology</h4>
+        <p>FinTech, blockchain, algorithmic trading, machine learning, DeFi, and AI in finance. 20 resources.</p>
+        <span class="go-btn">Start Track →</span>
+      </div>
+      <div class="div-card mc" onclick="switchTabByName('mc')">
+        <div class="div-card-icon">🧩</div>
+        <h4>Management Consulting</h4>
+        <p>Case frameworks, strategy tools, profitability analysis, and live case interview practice. 20 resources.</p>
+        <span class="go-btn">Start Track →</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     INVESTMENT BANKING
+══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-ib">
+  <div class="container">
+    <div class="division-header ib">
+      <div class="tag">Division 01 · Investment Banking</div>
+      <h2>Investment Banking Track</h2>
+      <p>Master financial statements, valuation methodologies, M&A deal structures, and financial modelling — the core toolkit of any investment banking analyst.</p>
+    </div>
+
+    <!-- Phase 1 -->
+    <div class="phase">
+      <div class="phase-label">
+        <span class="phase-tag foundation">Phase 1 · Foundation</span>
+        <div class="phase-line"></div>
+      </div>
+      <div class="resources-grid">
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/f/financial-statements.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">01</div><div class="resource-title">Introduction to Financial Statements</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=Fi1wkUczuyk" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">02</div><div class="resource-title">Financial Statements in 8 Minutes</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/i/incomestatement.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">03</div><div class="resource-title">Income Statement Deep Dive</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/b/balancesheet.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">04</div><div class="resource-title">Balance Sheet Explained</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/c/cashflowstatement.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">05</div><div class="resource-title">Cash Flow Statement</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/t/timevalueofmoney.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">06</div><div class="resource-title">Time Value of Money (TVM)</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/n/npv.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">07</div><div class="resource-title">Net Present Value (NPV)</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/i/irr.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">08</div><div class="resource-title">Internal Rate of Return (IRR)</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=9_a0zYox_Rk" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">09</div><div class="resource-title">Investment Banking Explained in 5 Minutes</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/c/capitalmarkets.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">10</div><div class="resource-title">What Are Capital Markets?</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/w/wacc.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">11</div><div class="resource-title">Weighted Average Cost of Capital (WACC)</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=UTUVgGbX3Uk" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">12</div><div class="resource-title">WACC & Cost of Equity — Breaking Into Wall Street</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase">
+      <div class="phase-label">
+        <span class="phase-tag intermediate">Phase 2 · Intermediate</span>
+        <div class="phase-line"></div>
+      </div>
+      <div class="resources-grid">
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/d/dcf.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">13</div><div class="resource-title">Discounted Cash Flow (DCF) Analysis</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=XL71PBhcs2M" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">14</div><div class="resource-title">Building a DCF Model Part 1 — Wall Street Prep</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=bCCrACXrVPQ" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">15</div><div class="resource-title">Building a DCF Model Part 2 — Wall Street Prep</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/c/comparable-company-analysis-cca.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">16</div><div class="resource-title">Comparable Company Analysis (Trading Comps)</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/p/precedent-transaction-analysis.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">17</div><div class="resource-title">Precedent Transaction Analysis</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/e/enterprisevalue.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">18</div><div class="resource-title">Enterprise Value vs Equity Value</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://corporatefinanceinstitute.com/resources/valuation/ebitda/" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">19</div><div class="resource-title">EBITDA — Definition & Uses in Valuation</div></div>
+            <span class="source-badge cfi">CFI</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/l/leveragedbuyout.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">20</div><div class="resource-title">Leveraged Buyout (LBO) Basics</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/m/mergersandacquisitions.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">21</div><div class="resource-title">Mergers & Acquisitions (M&A) Overview</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://corporatefinanceinstitute.com/resources/financial-modeling/football-field-chart-template/" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">22</div><div class="resource-title">Football Field Valuation Chart</div></div>
+            <span class="source-badge cfi">CFI</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/i/ipo.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">23</div><div class="resource-title">The IPO Process Explained</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/d/duediligence.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">24</div><div class="resource-title">Due Diligence in M&A</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase">
+      <div class="phase-label">
+        <span class="phase-tag advanced">Phase 3 · Advanced</span>
+        <div class="phase-line"></div>
+      </div>
+      <div class="resources-grid">
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=zeCfu5g0Uis" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">25</div><div class="resource-title">How to Build an LBO Model — Wall Street Prep</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/articles/fundamental-analysis/09/accretion-dilution-analysis-mergers.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">26</div><div class="resource-title">Accretion / Dilution Analysis in M&A</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/articles/professionals/112615/best-financial-modeling-courses-investment-bankers.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">27</div><div class="resource-title">Financial Modelling Best Practices</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/d/debtrestructuring.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">28</div><div class="resource-title">Debt Restructuring & Distressed M&A</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/s/synergy.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">29</div><div class="resource-title">Synergies in M&A — Revenue & Cost</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=Ul1ajfFtJSM" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">30</div><div class="resource-title">The DCF Model — Breaking Into Wall Street</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://corporatefinanceinstitute.com/resources/valuation/3-statement-model/" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">31</div><div class="resource-title">The 3-Statement Financial Model</div></div>
+            <span class="source-badge cfi">CFI</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     GLOBAL MARKETS
+══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-gm">
+  <div class="container">
+    <div class="division-header gm">
+      <div class="tag">Division 02 · Global Markets</div>
+      <h2>Global Markets — Sales & Trading</h2>
+      <p>Understand how financial markets operate — from equities and fixed income to derivatives and macro strategy. Learn how traders price risk and sales teams pitch ideas to institutional clients.</p>
+    </div>
+
+    <!-- Phase 1 -->
+    <div class="phase">
+      <div class="phase-label">
+        <span class="phase-tag foundation">Phase 1 · Foundation</span>
+        <div class="phase-line"></div>
+      </div>
+      <div class="resources-grid">
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/s/stockmarket.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">01</div><div class="resource-title">How the Stock Market Works</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=lI7h_ItQC7Q" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">02</div><div class="resource-title">Sales & Trading Explained — How Banks Work</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/b/bond.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">03</div><div class="resource-title">Bonds — The Fundamentals</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/y/yieldcurve.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">04</div><div class="resource-title">The Yield Curve Explained</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=eZI0PLhUcnI" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">05</div><div class="resource-title">Yield Curve Full Visual Guide</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/m/marketmaker.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">06</div><div class="resource-title">Market Makers & Bid-Ask Spread</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/f/forex.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">07</div><div class="resource-title">Foreign Exchange (FX) Market</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/i/inflation.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">08</div><div class="resource-title">Inflation, Interest Rates & Central Banks</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/e/equity.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">09</div><div class="resource-title">Equities — How Stocks Are Valued</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase">
+      <div class="phase-label">
+        <span class="phase-tag intermediate">Phase 2 · Intermediate</span>
+        <div class="phase-line"></div>
+      </div>
+      <div class="resources-grid">
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/d/derivative.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">10</div><div class="resource-title">Introduction to Derivatives</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/options-basics-tutorial-4583012" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">11</div><div class="resource-title">Options Trading — Complete Basics Tutorial</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=4HMm6mBvGKE" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">12</div><div class="resource-title">Options Trading Explained — Beginners Guide</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/t/technicalanalysis.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">13</div><div class="resource-title">Technical Analysis Fundamentals</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/f/fundamentalanalysis.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">14</div><div class="resource-title">Fundamental Analysis</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/v/var.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">15</div><div class="resource-title">Value at Risk (VaR)</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/h/hedge.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">16</div><div class="resource-title">Hedging Strategies in Financial Markets</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/e/efficientmarkethypothesis.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">17</div><div class="resource-title">Efficient Market Hypothesis (EMH)</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/c/commodity.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">18</div><div class="resource-title">Commodities Markets</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=2qqUhKVlaEE" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">19</div><div class="resource-title">Bond Yields Explained</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase">
+      <div class="phase-label">
+        <span class="phase-tag advanced">Phase 3 · Advanced</span>
+        <div class="phase-line"></div>
+      </div>
+      <div class="resources-grid">
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/b/blackscholes.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">20</div><div class="resource-title">Black-Scholes Options Pricing Model</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/g/greeks.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">21</div><div class="resource-title">The Greeks — Delta, Gamma, Theta, Vega</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/c/creditdefaultswap.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">22</div><div class="resource-title">Credit Default Swaps (CDS)</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/articles/trading/09/quant-strategies.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">23</div><div class="resource-title">Quantitative Trading Strategies</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/s/swap.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">24</div><div class="resource-title">Interest Rate Swaps</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/s/securitization.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">25</div><div class="resource-title">Securitisation — ABS, MBS & CDOs</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     GLOBAL TECHNOLOGY
+══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-gt">
+  <div class="container">
+    <div class="division-header gt">
+      <div class="tag">Division 03 · Global Technology</div>
+      <h2>Global Technology Track</h2>
+      <p>Explore where finance meets engineering — from FinTech infrastructure and algorithmic trading to blockchain, AI, and the systems powering modern financial institutions.</p>
+    </div>
+
+    <!-- Phase 1 -->
+    <div class="phase">
+      <div class="phase-label">
+        <span class="phase-tag foundation">Phase 1 · Foundation</span>
+        <div class="phase-line"></div>
+      </div>
+      <div class="resources-grid">
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/f/fintech.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">01</div><div class="resource-title">What Is FinTech?</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/b/blockchain.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">02</div><div class="resource-title">Blockchain Technology Explained</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=uOqPElBsBmM" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">03</div><div class="resource-title">Intro to Python for Finance — Beginner's Guide</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/d/data-analytics.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">04</div><div class="resource-title">Data Analytics in Finance</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/a/application-programming-interface.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">05</div><div class="resource-title">APIs in Financial Services</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/c/cloud-computing.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">06</div><div class="resource-title">Cloud Computing for Financial Services</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/c/cybersecurity.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">07</div><div class="resource-title">Cybersecurity in Banking</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/d/digital-currency.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">08</div><div class="resource-title">Digital Currencies & CBDCs</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase">
+      <div class="phase-label">
+        <span class="phase-tag intermediate">Phase 2 · Intermediate</span>
+        <div class="phase-line"></div>
+      </div>
+      <div class="resources-grid">
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/a/algorithmictrading.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">09</div><div class="resource-title">Algorithmic Trading Explained</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=GDMkkmkJigw" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">10</div><div class="resource-title">Algorithmic Trading with Python — Full Tutorial</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/m/machine-learning.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">11</div><div class="resource-title">Machine Learning in Finance</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/r/regtech.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">12</div><div class="resource-title">RegTech — Regulatory Technology</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/how-robo-advisors-actually-invest-your-money-11776454" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">13</div><div class="resource-title">Robo-Advisors & WealthTech</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/o/open-banking.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">14</div><div class="resource-title">Open Banking & PSD2</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase">
+      <div class="phase-label">
+        <span class="phase-tag advanced">Phase 3 · Advanced</span>
+        <div class="phase-line"></div>
+      </div>
+      <div class="resources-grid">
+
+        <a class="resource-card" href="https://www.investopedia.com/decentralized-finance-defi-5113835" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">15</div><div class="resource-title">Decentralised Finance (DeFi) Deep Dive</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=WT_1_0w7yio" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">16</div><div class="resource-title">Python, AI & ML for Algo Trading</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=Qn_KjTpRYbY" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">17</div><div class="resource-title">NLP & Sentiment Analysis in Finance</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/h/high-frequency-trading.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">18</div><div class="resource-title">High-Frequency Trading (HFT)</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/s/smart-contracts.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">19</div><div class="resource-title">Smart Contracts in Financial Services</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/a/artificial-intelligence-ai.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">20</div><div class="resource-title">Artificial Intelligence in Finance</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     MANAGEMENT CONSULTING
+══════════════════════════════════════════════════ -->
+<div class="tab-panel" id="panel-mc">
+  <div class="container">
+    <div class="division-header mc">
+      <div class="tag">Division 04 · Management Consulting</div>
+      <h2>Management Consulting Track</h2>
+      <p>Build the problem-solving toolkit used by top strategy consultants — from case frameworks and business model analysis to live case interview practice for MBB and Big 4 roles.</p>
+    </div>
+
+    <!-- Phase 1 -->
+    <div class="phase">
+      <div class="phase-label">
+        <span class="phase-tag foundation">Phase 1 · Foundation</span>
+        <div class="phase-line"></div>
+      </div>
+      <div class="resources-grid">
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=4avS00vBDI8" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">01</div><div class="resource-title">What Do Management Consultants Actually Do?</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/s/swot.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">02</div><div class="resource-title">SWOT Analysis</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/p/porter.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">03</div><div class="resource-title">Porter's Five Forces</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/m/mckinsey-7s-model.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">04</div><div class="resource-title">McKinsey 7S Framework</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/b/bcg.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">05</div><div class="resource-title">BCG Growth-Share Matrix</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=jK6WFF1FNGs" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">06</div><div class="resource-title">The MECE Principle</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/v/valuechain.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">07</div><div class="resource-title">Value Chain Analysis</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/b/businessmodel.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">08</div><div class="resource-title">Business Models — How Companies Make Money</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase">
+      <div class="phase-label">
+        <span class="phase-tag intermediate">Phase 2 · Intermediate</span>
+        <div class="phase-line"></div>
+      </div>
+      <div class="resources-grid">
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=orsNS3YG_KE" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">09</div><div class="resource-title">McKinsey Case Interview Solved — Ex-McKinsey Consultant</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=HYGIoe-QXhU" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">10</div><div class="resource-title">Market Sizing Case — McKinsey Walkthrough</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=SyThS7iJyA4" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">11</div><div class="resource-title">McKinsey Profitability Case — Live Interview</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/p/profitability.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">12</div><div class="resource-title">Profitability Analysis Frameworks</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/p/pricingpower.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">13</div><div class="resource-title">Pricing Strategy & Pricing Power</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/o/operations-management.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">14</div><div class="resource-title">Operations Management Fundamentals</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/m/merger.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">15</div><div class="resource-title">M&A Strategy from a Consulting Lens</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase">
+      <div class="phase-label">
+        <span class="phase-tag advanced">Phase 3 · Advanced</span>
+        <div class="phase-line"></div>
+      </div>
+      <div class="resources-grid">
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=_ZrQB-YGFd4" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">16</div><div class="resource-title">How to Build a Case Interview Framework — Ex-McKinsey</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.youtube.com/watch?v=XByqDlkpjoM" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">17</div><div class="resource-title">Profitability Case with Ex-McKinsey Manager</div></div>
+            <span class="source-badge youtube">YouTube</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://online.hbs.edu/blog/post/4-keys-to-understanding-clayton-christensens-theory-of-disruptive-innovation" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">18</div><div class="resource-title">Disruptive Innovation Theory</div></div>
+            <span class="source-badge other">HBS Online</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.investopedia.com/terms/e/environmental-social-and-governance-esg-criteria.asp" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">19</div><div class="resource-title">ESG Strategy & Sustainability Consulting</div></div>
+            <span class="source-badge investopedia">Investopedia</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+        <a class="resource-card" href="https://www.planview.com/resources/guide/definitive-digital-transformation-guide/digital-transformation-strategy/" target="_blank">
+          <div class="resource-top">
+            <div><div class="resource-num">20</div><div class="resource-title">Digital Transformation Strategy</div></div>
+            <span class="source-badge other">Planview</span>
+          </div>
+          <span class="arrow">Open resource ↗</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Students' Finance Club, OAU · Finance Foundation Course · All links open external resources
+</footer>
+
+<script>
+  // Tab buttons NodeList for highlight toggling
+  const tabBtns = document.querySelectorAll('.tab-btn');
+
+  function switchTab(id, clickedBtn) {
+    // Hide all panels
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    // Deactivate all buttons
+    tabBtns.forEach(b => b.classList.remove('active'));
+    // Show target panel
+    document.getElementById('panel-' + id).classList.add('active');
+    // Activate clicked button
+    if (clickedBtn) clickedBtn.classList.add('active');
+  }
+
+  function switchTabByName(id) {
+    // Find corresponding tab button
+    const btn = Array.from(tabBtns).find(b => b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + id + "'"));
+    switchTab(id, btn);
+  }
+</script>
+</body>
+</html>
